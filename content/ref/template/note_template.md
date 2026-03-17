@@ -15,7 +15,7 @@ draft: false
 > 一句话总结这篇笔记的核心内容、主要观点或研究结论。方便在 Quartz 列表中预览或快速回顾。
 
 > [!cite] 📄 核心文献源 (Source Paper)
-> **原文链接**: [[paper|论文原文]] [你想显示的蓝色文字](https://arxiv.org/abs/2603.05232)
+> **原文链接**: [[paper_template|论文]] [[blog_template|博客]]  [[link_template|博客原文]] [你想显示的蓝色文字](https://arxiv.org/abs/2603.05232)
 
 ## 🕸️ 知识图谱索引 (Graph Index)
 - **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA #paper/arxiv-1910-02054 #paper/Megatron-LM
