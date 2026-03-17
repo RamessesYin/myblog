@@ -1,5 +1,5 @@
 ---
-title: 哪家大模型写 GPU Kernel 最强
+title: 博客模版
 created: 2026-03-17T10:45:47 (UTC +08:00)
 tags: 
   - 性能优化

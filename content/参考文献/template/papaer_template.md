@@ -1,5 +1,5 @@
 ---
-title: "论文节点：Attention Is All You Need"
+title: "论文模版"
 tags:
   - 论文
   - 大模型

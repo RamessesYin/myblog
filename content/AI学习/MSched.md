@@ -1,20 +1,26 @@
 ---
-title: "📝模版"
+title: "Msched"
 tags:
-  - 论文
-  - 大模型
+  - kernel launch
+  - kernel 调度
+  - 陈海波
+  - IPADS
+  - mlsys
 ---
 
 ## 🧠 核心摘要 (TL;DR)
 
-> 用一两句话概括：这篇论文解决了现有系统或框架的什么痛点？提出了什么核心机制？效果如何？
-这里是正文内容的开始。你可以使用 **粗体** 来强调重点，或者使用 *斜体* 表示专有名词。如果你使用 Obsidian，还可以使用 ==高亮文本== 来标记核心结论。对于不需要的内容，可以使用 ~~删除线~~。包含行内代码：你可以使用 `std::vector<int>` 或 `__global__` 这样的行内代码来标记函数或变量。
+通过解析launch kernel时的参数信息，建立整个任务的完整时间线，记录每个kernel的内存访问需求，从而在后续的内存调度中获得“天眼”，能够及时调度最需要的数据给到当前任务，减少page fault。
+
+经典的 Belady 算法认为，最优的页面置换策略是驱逐那些在未来最长时间内不会被访问的页面。在通用 OS 中，这是不可实现的，因为无法预知未来。但是在Msched的场景下，这一切变成了可能。黑盒式的资源管理策略（如按需分页）已经失效。通过引入领域知悉（Domain-Aware） 的机制——即利用 GPU 程序的确定性特征——操作系统可以实现数量级的性能飞跃。
+
+但这一做法非常依赖内核访存的可预测性。对于那些访存地址依赖于运行时数据内容（Data-dependent memory access）的不规则负载（如某些图计算算法），模板预测可能会失效。未来的工作需要探索如何结合动态分析或推测执行（Speculative Execution）来覆盖这些长尾场景。
 
 ## 🏷️ 元数据 (Metadata)
-- **论文标题**: [Full Title]
+- **论文标题**: [Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling]
 - **发表机构/会议**: [e.g., SOSP / OSDI / arXiv / 某大厂团队]
-- **年份**: 202X
-- **链接**: [📄 PDF](link) | [💻 Code](link)
+- **年份**: 2025
+- **原文链接**: [[msched_paper|📄 PDF]]
 - **标签**: #LLM #DistributedSystem #ParallelComputing #MemoryOptimization #help
 
 ---

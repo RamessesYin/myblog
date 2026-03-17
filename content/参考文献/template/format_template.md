@@ -1,5 +1,5 @@
 ---
-title: 文档标题
+title: 格式模版
 date: {{date}}
 tags:
   - 标签1
