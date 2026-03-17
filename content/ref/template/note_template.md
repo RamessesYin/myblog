@@ -9,13 +9,18 @@ aliases:
 draft: false
 ---
 
-# 你的文档标题
+# 📝 [论文短标题/核心概念] 阅读笔记
 
 > [!abstract] 核心摘要
 > 一句话总结这篇笔记的核心内容、主要观点或研究结论。方便在 Quartz 列表中预览或快速回顾。
 
-> [!cite] 📄 核心文献源 (Source Paper)
-> **原文链接**: [[paper_template|论文]] [[blog_template|博客]]  [[link_template|博客原文]] [你想显示的蓝色文字](https://arxiv.org/abs/2603.05232)
+## 🏷️ 元数据 (Metadata)
+- **论文标题**: [Full Title]
+- **发表机构/会议**: [e.g., SOSP / OSDI / arXiv / 某大厂团队]
+- **年份**: 202X
+- **原文链接**: [[paper_template|📄 PDF]] ｜ | [💻 Code](link) ｜ [[blog_template|博客]] ｜ [[link_template|博客原文]] ｜ [你想显示的蓝色文字](https://arxiv.org/abs/2603.05232)
+- **标签**: #LLM #DistributedSystem #ParallelComputing #MemoryOptimization #help
+  
 
 ## 🕸️ 知识图谱索引 (Graph Index)
 - **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA #paper/arxiv-1910-02054 #paper/Megatron-LM
