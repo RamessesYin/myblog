@@ -9,10 +9,12 @@ tags:
 
 # Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling
 
-> [!abstract] 论文元数据
-> **作者**: Weihang Shen, Yinqiu Chen, Rong Chen, Haibo Chen
-> **年份**: 2025
-> **关联论文**: [[]]
+## 🏷️ 元数据 (Metadata)
+- **作者**: Weihang Shen, Yinqiu Chen, Rong Chen, Haibo Chen
+- **年份**: 2025
+- **关联论文**
+
+<iframe src="https://arxiv.org/pdf/2512.24637" width="100%" height="800px"></iframe>
 
 ## MSched：基于主动内存调度的 GPU 多任务处理机制深度解读报告
 
@@ -337,9 +339,6 @@ MSched 的提出标志着 GPU 操作系统设计的一个转折点。它证明�
 
 ___
 
-_(报告结束)_
-
-**引用索引**： Paper Metadata; Intro & Pathology; Architecture; Code & Impl; Abstract; Evaluation; Prediction; Timeline & OPT; Related Work; SwapAdvisor; Comparison.
 
 
-<iframe src="https://arxiv.org/abs/2512.24637" width="100%" height="800px"></iframe>
+

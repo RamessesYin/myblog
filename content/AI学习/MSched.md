@@ -20,8 +20,7 @@ tags:
 - **论文标题**: [Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling]
 - **发表机构/会议**: [e.g., SOSP / OSDI / arXiv / 某大厂团队]
 - **年份**: 2025
-- **原文链接**: [[msched_paper|📄 PDF]]
-- **标签**: #LLM #DistributedSystem #ParallelComputing #MemoryOptimization #help
+- **原文链接**: [[msched_paper|📄论文]]
 
 ---
 
