@@ -1,6 +1,5 @@
 ---
-title: Welcome to Quartz
+title: Containing Multitudes
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+To think is to forget a difference, to generalize, to abstract.
