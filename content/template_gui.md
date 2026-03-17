@@ -16,7 +16,7 @@ draft: false
 
 ## 🕸️ 知识图谱索引 (Graph Index)
 
-- **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA
+- **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA #paper/arxiv-1910-02054 #paper/Megatron-LM
 - **前置知识 (Prerequisites)**: [[前置概念文档链接]]
 - **相关节点 (Related Notes)**: [[相关项目文档1]], [[相关概念文档2]]
 - **向下延申 (Successors)**: [[后续研究或拓展文档]]
@@ -121,3 +121,4 @@ Markdown 原生表格，非常适合做多方案的横向对比：
 
 [^1]: [作者姓名]. "[论文/文章标题]". (年份). *发布期刊或会议*. [URL或DOI链接]
 [^2]: [开源项目团队]. "[项目官方文档]". *GitHub/官方网站*. [URL]
+[^3]: [arXiv论文] [URL]
