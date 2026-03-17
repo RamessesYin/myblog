@@ -1,7 +1,9 @@
 ---
 title: 哪家大模型写 GPU Kernel 最强
 created: 2026-03-17T10:45:47 (UTC +08:00)
-tags: []
+tags: 
+  - 性能优化
+  - 参考资料
 source: https://mp.weixin.qq.com/s/y_6glt8NeZZ985lkVnTeyg
 author: Wafer
 ---
