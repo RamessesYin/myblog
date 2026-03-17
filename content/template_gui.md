@@ -13,7 +13,7 @@ draft: false
 
 > [!abstract] 核心摘要
 > 一句话总结这篇笔记的核心内容、主要观点或研究结论。方便在 Quartz 列表中预览或快速回顾。
-
+> [[paper]]
 ## 🕸️ 知识图谱索引 (Graph Index)
 
 - **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA #paper/arxiv-1910-02054 #paper/Megatron-LM
