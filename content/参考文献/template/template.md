@@ -1,8 +1,7 @@
 ---
 title: "笔记模版"
 tags:
-  - 论文
-  - 大模型
+  - 模版
 ---
 
 ## 🧠 核心摘要 (TL;DR)
@@ -20,7 +19,7 @@ tags:
 ---
 
 ## 🕸️ 知识图谱索引 (Graph Index)
-- **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA #paper/arxiv-1910-02054 #paper/Megatron-LM
+- **关键词 (Keywords)**: #模版
 - **前置知识 (Prerequisites)**: [[前置概念文档链接]]
 - **相关节点 (Related Notes)**: [[相关项目文档1]], [[相关概念文档2]]
 - **向下延申 (Successors)**: [[后续研究或拓展文档]]

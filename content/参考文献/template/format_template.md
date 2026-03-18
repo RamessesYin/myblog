@@ -2,8 +2,7 @@
 title: 格式模版
 date: {{date}}
 tags:
-  - 标签1
-  - 标签2
+  - 模版
 aliases:
   - 文档别名
 draft: false
@@ -23,7 +22,7 @@ draft: false
   
 
 ## 🕸️ 知识图谱索引 (Graph Index)
-- **关键词 (Keywords)**: #分布式系统 #大模型 #CUDA #paper/arxiv-1910-02054 #paper/Megatron-LM
+- **关键词 (Keywords)**: #模版
 - **前置知识 (Prerequisites)**: [[前置概念文档链接]]
 - **相关节点 (Related Notes)**: [[相关项目文档1]], [[相关概念文档2]]
 - **向下延申 (Successors)**: [[后续研究或拓展文档]]

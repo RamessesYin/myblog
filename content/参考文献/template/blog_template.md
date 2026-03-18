@@ -2,8 +2,7 @@
 title: 博客模版
 created: 2026-03-17T10:45:47 (UTC +08:00)
 tags: 
-  - 性能优化
-  - 参考资料
+  - 模版
 source: https://mp.weixin.qq.com/s/y_6glt8NeZZ985lkVnTeyg
 author: Wafer
 ---

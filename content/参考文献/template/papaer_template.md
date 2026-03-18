@@ -1,8 +1,7 @@
 ---
 title: "论文模版"
 tags:
-  - 论文
-  - 大模型
+  - 模版
 ---
 
 # Attention Is All You Need
