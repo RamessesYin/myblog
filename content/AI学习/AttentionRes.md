@@ -19,7 +19,7 @@ tags:
 ---
 
 ## 🕸️ 知识图谱索引 (Graph Index)
-- **关键词 (Keywords)**: #残差连接 #Residual Connections #深层神经网络优化 #超长上下文优化
+- **关键词 (Keywords)**: #残差连接 #Residual Connections #深层神经网络优化 #超长上下文优化 
 <!-- - **前置知识 (Prerequisites)**: [[前置概念文档链接]]
 - **相关节点 (Related Notes)**: [[相关项目文档1]], [[相关概念文档2]]
 - **向下延申 (Successors)**: [[后续研究或拓展文档]] -->

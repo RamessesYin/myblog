@@ -1,10 +1,6 @@
 ---
 title: "Msched paper"
 tags:
-  - kernel launch
-  - kernel 调度
-  - 陈海波
-  - IPADS
 ---
 
 # Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling

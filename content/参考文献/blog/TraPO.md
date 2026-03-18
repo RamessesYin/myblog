@@ -1,19 +1,12 @@
 ---
-title: 推文节点：CUDA 性能调优的几个常见误区
-created: 2026-03-17T10:47:55 (UTC +08:00)
+title: TraPO与大语言模型推理的新范式：半监督强化学习、GRPO机制与弱监督分层解析的深度综述
+
 tags: 
-  - 性能优化
-  - 参考资料
+  - 强化学习
 source: https://gemini.google.com/app/8c67daf65fec4098?utm_source=deepmind.google&utm_medium=referral&utm_campaign=gdm&utm_content=
 author: 
 ---
 
-# Google Gemini
-
-> ## Excerpt
-> 认识 Gemini：Google 旗下的 AI 助理。在写作、规划和开展头脑风暴等方面获得帮助。体验生成式 AI 的强大功能。
-
----
 ## TraPO与大语言模型推理的新范式：半监督强化学习、GRPO机制与弱监督分层解析的深度综述
 
 ## 1\. 执行摘要与引言

@@ -14,7 +14,7 @@ tags:
 - **发表机构/会议**: [e.g., SOSP / OSDI / arXiv / 某大厂团队]
 - **年份**: 202X
 - **链接**: [📄 PDF](link) | [💻 Code](link)
-- **标签**: #LLM #DistributedSystem #ParallelComputing #MemoryOptimization #help
+- **标签**: #模版
 
 ---
 

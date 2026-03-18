@@ -18,7 +18,7 @@ draft: false
 - **发表机构/会议**: [e.g., SOSP / OSDI / arXiv / 某大厂团队]
 - **年份**: 202X
 - **原文链接**: [[paper_template|📄 PDF]] ｜ | [💻 Code](link) ｜ [[blog_template|博客]] ｜ [[link_template|博客原文]] ｜ [你想显示的蓝色文字](https://arxiv.org/abs/2603.05232)
-- **标签**: #LLM #DistributedSystem #ParallelComputing #MemoryOptimization #help
+- **标签**: #模版
   
 
 ## 🕸️ 知识图谱索引 (Graph Index)

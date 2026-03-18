@@ -1,12 +1,6 @@
 ---
 title: "AttnRes paper"
 tags:
-  - 残差连接
-  - Residual Connections
-  - 深层神经网络优化
-  - kimi
-  - 算法优化
-  - 训练效率
 ---
 
 # Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling
