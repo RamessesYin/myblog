@@ -1,6 +1,5 @@
 ---
-title: TraPO与大语言模型推理的新范式：半监督强化学习、GRPO机制与弱监督分层解析的深度综述
-
+title: TraPO
 tags: 
   - 强化学习
 source: https://gemini.google.com/app/8c67daf65fec4098?utm_source=deepmind.google&utm_medium=referral&utm_campaign=gdm&utm_content=
