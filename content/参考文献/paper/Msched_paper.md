@@ -1,11 +1,11 @@
 ---
-title: "Msched paper"
+title: "Msched"
 tags:
 ---
 
 # Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling
 
-## 🏷️ 元数据 (Metadata)
+## 🏷️ 元数据 
 - **作者**: Weihang Shen, Yinqiu Chen, Rong Chen, Haibo Chen
 - **年份**: 2025
 - **关联论文**

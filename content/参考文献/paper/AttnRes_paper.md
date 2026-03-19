@@ -1,11 +1,11 @@
 ---
-title: "AttnRes paper"
+title: "AttnRes"
 tags:
 ---
 
 # Towards Fully-fledged GPU Multitasking via Proactive Memory Scheduling
 
-## 🏷️ 元数据 (Metadata)
+## 🏷️ 元数据 
 - **作者**: Kimi Team
 - **年份**: 2026
 - **关联论文**

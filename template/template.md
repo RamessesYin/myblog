@@ -13,7 +13,7 @@ tags:
 - **论文标题**: [Full Title]
 - **发表机构/会议**: [e.g., SOSP / OSDI / arXiv / 某大厂团队]
 - **年份**: 202X
-- **链接**: [📄 PDF](link) | [💻 Code](link)
+- **链接**: [[MemCopy_paper|📄论文]] | [💻 Code](link)
 
 ---
 

@@ -6,7 +6,7 @@ tags:
 
 # How to Copy Memory? Coordinated Asynchronous Copy as a First-Class OS Service
 
-## 🏷️ 元数据 (Metadata)
+## 🏷️ 元数据
 - **作者**: Jingkai He, Yunpeng Dong, Dong Du
 - **年份**: 2025
 - **关联论文**
