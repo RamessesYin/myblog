@@ -35,10 +35,8 @@ tags:
 
 |流量类型|典型场景|性能指标 (SLO)|资源瓶颈特征|
 |---|---|---|---|
-|**在线交互式 (Online/Interactive)**|智能客服、Copilot 代码补全、实时翻译|**TTFT (Time To First Token)**：极低
-**TPOT (Time Per Output Token)**：低，且抖动小|**Latency Bound**：受限于内存带宽和通信延迟，GPU 计算单元利用率通常较低。|
-|**离线批处理 (Offline/Batch)**|文档摘要、大规模数据清洗、RAG 索引构建|**Throughput (Tokens/sec)**：极大化
-**Cost Per Token**：极小化|**Throughput Bound**：受限于 GPU 计算能力 (TFLOPS) 和显存容量 (KV Cache)。|
+|**在线交互式 (Online/Interactive)**|智能客服、Copilot 代码补全、实时翻译|**TTFT (Time To First Token)**：极低 <br>**TPOT (Time Per Output Token)**：低，且抖动小|**Latency Bound**：受限于内存带宽和通信延迟，GPU 计算单元利用率通常较低。|
+|**离线批处理 (Offline/Batch)**|文档摘要、大规模数据清洗、RAG 索引构建|**Throughput (Tokens/sec)**：极大化 <br>**Cost Per Token**：极小化|**Throughput Bound**：受限于 GPU 计算能力 (TFLOPS) 和显存容量 (KV Cache)。|
 
 在现实生产环境中，这两种流量并非静态隔离，而是随时间动态波动。例如，白天工作时间主要是高频的交互式请求，而夜间则可能突发大规模的离线批处理任务。传统的“静态并行”策略要求运维团队为不同负载部署独立的集群（如 TP 集群服务在线，DP 集群服务离线），这不仅导致了硬件资源的碎片化和闲置，也大幅增加了总拥有成本（TCO）和运维复杂度 。
 
