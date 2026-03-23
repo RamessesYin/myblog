@@ -93,10 +93,10 @@ Shift Parallelism并非发明了一种全新的并行方式，而是发现并利
 #####  策略阈值机制
 
 调度算法的核心逻辑如下：
-$$\text{Config} = \begin{cases} 
+$\text{Config} = \begin{cases} 
 (\text{TP}=P, \text{SP}=1) & \text{if } \text{Batch Size} < \tau \\
 (\text{TP}=1, \text{SP}=P) & \text{if } \text{Batch Size} \ge \tau 
-\end{cases}$$
+\end{cases}$
 
 其中 $\tau$  是根据硬件特性（计算能力 vs 通信带宽）和模型参数确定的最优切换阈值。
 
