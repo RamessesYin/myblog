@@ -20,7 +20,7 @@ tags:
 ---
 
 ## 🕸️ 知识图谱索引 
-- **关键词 (Keywords)**: #Tensor-Parallelism #Data-Parallelism #Sequence Parallelism #KV-Cache 
+- **关键词 (Keywords)**: #Tensor-Parallelism #Data-Parallelism #Sequence-Parallelism #KV-Cache 
 <!-- - **前置知识 (Prerequisites)**: [[前置概念文档链接]]
 - **相关节点 (Related Notes)**: [[相关项目文档1]], [[相关概念文档2]]
 - **向下延申 (Successors)**: [[后续研究或拓展文档]] -->
@@ -173,4 +173,4 @@ Snowflake AI Research 在 AWS p5en.48xlarge 实例（搭载 8x H200 GPU）上对
 
 
 ## 💡 启发与我的想法 
-确实prefill和decode有不同的需求，所以现在pd分离以后就不需要搞这么复杂的sp来保证kv cache的不变性，因为本来就是要传输这些kv cache的。这篇论文的重点在于解决不同batch的prefill需求，我设想的RL弹性并行也是类似的思路，从attention DP切回TP，其实本质上就是all gather一次 attention 权重，这样从保吞吐改成保延迟，同时也需要一次all2all来传kv cache。论文中对FFN用DP的方法对于我想优化的RL场景感觉意义不大，因为671B这种模型FFN根本没法塞在一张卡上，EP替代TP其实是类似的思路，但是rollout的瓶颈在decode，如果没有足够大的batch EP也是一样打不满，可能还不如直接TP.
+确实prefill和decode有不同的需求，所以现在pd分离以后就不需要搞这么复杂的sp来保证kv cache的不变性，因为本来就是要传输这些kv cache的。这篇论文的重点在于解决不同batch的prefill需求，我设想的RL弹性并行也是类似的思路，从attention DP切回TP，其实本质上就是all gather一次 attention 权重，这样从保吞吐改成保延迟，同时也需要一次all2all来传kv cache。论文中对FFN用DP的方法对于我想优化的RL场景感觉意义不大，因为671B这种模型FFN根本没法塞在一张卡上，EP替代TP其实是类似的思路，但如果没有足够大的batch EP也是一样打不满，可能还不如直接TP。rollout的瓶颈在decode，论文中提到的sp是不能应用的，否则传kv cache是负优化，还是得传q做分布式softmax
