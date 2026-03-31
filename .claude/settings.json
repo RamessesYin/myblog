@@ -1,0 +1,21 @@
+{
+    "permissions": {
+      "allow": [
+        "Bash(*)",
+        "Read",
+        "Edit",
+        "Write",
+        "Glob",
+        "Grep",
+        "WebFetch",
+        "WebSearch",
+        "Bash(__NEW_LINE_ad9b8cd89930c075__ echo:*)"
+      ],
+      "deny": [
+        "Bash(rm -rf /*)",
+        "Bash(rm -rf /)",
+        "Bash(rm -rf ~)",
+        "Bash(rm -rf ~/*)"
+      ]
+    }
+  }
