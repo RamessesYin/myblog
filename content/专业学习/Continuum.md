@@ -16,7 +16,7 @@ tags:
 - **论文标题**: Continuum: Efficient and Robust Multi-Turn LLM Agent Scheduling with KV Cache Time-to-Live
 - **发表机构/会议**: UC Berkeley / arXiv (cs.OS, cs.AI, cs.NI)
 - **年份**: 2025（v3 更新于 2026-01）
-- **链接**: [[Continuum_paper|📄论文]] | [💻 Code](https://github.com/vllm-project/vllm-continuum)
+- **链接**: [[Continuum_paper|📄论文]] | [💻 Code](https://github.com/Hanchenli/vllm-continuum)
 
 ---
 

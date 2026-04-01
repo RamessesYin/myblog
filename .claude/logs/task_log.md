@@ -11,6 +11,16 @@
 
 ---
 
+## [2026-04-01 完成]  CloudMatrix384 — 华为 Ascend 910 MoE 大规模推理服务
+- **原文**: https://arxiv.org/abs/2506.12708
+- **正式笔记**: content/专业学习/CloudMatrix384.md
+- **参考文献**: content/参考文献/paper/CloudMatrix384_paper.md
+- **关键词**: #MoE #专家并行 #LLM推理服务 #Ascend-NPU #PDC分离 #MLA优化 #INT8量化 #KV-Cache
+- **摘要**: 华为 CloudMatrix-Infer 在 384 NPU 全对等 UB 互联超节点上，通过 EP320 大规模专家并行、AIV-Direct 通信、早期 INT8 量化、MLA 算子融合等优化，在 DeepSeek-R1 671B 上实现预填充效率 4.45 tok/s/TFLOPS、解码效率 1.29 tok/s/TFLOPS，全面超越 H800 和 H100 基线。
+- **对比检索**: DeepSeek H800 (DeepSeek open-infra-index), SGLang on H100 (lmsys.org/blog), DistServe (OSDI'24), Mooncake (FAST'25, arXiv:2407.00079), MegaScale-Infer (arXiv:2504.02263)
+
+---
+
 ## [2026-03-31 完成]  Continuum — KV Cache TTL 多轮 Agent 调度
 - **原文**: https://arxiv.org/pdf/2511.02230
 - **正式笔记**: content/专业学习/Continuum.md
