@@ -11,7 +11,7 @@ tags:
 
 ## 🧠 核心摘要 (TL;DR)
 
-> 华为 CloudMatrix384 是一个将 384 块 Ascend 910 NPU 通过超高带宽统一总线（UB）全对等互联的超节点平台。本文提出 CloudMatrix-Infer 推理系统，三大创新分别是：**对等 PDC 分离架构**（Prefill/Decode/Cache 独立子集群）、**EP320 大规模专家并行**（解码集群使用 320 个 NPU die 做全量专家并行）、以及针对 Ascend 硬件的深度优化（AIV-Direct 通信、早期 INT8 量化、MLA 算子融合、MTP 流水线）。在 DeepSeek-R1 671B 上，预填充计算效率达 4.45 tokens/s/TFLOPS，解码效率 1.29 tokens/s/TFLOPS，**在 tokens/s/TFLOPS 这一核心效率指标上全面超越 H800 和 H100 基线**。
+> 华为 CloudMatrix384 是一个将 384 块 Ascend 910 NPU 通过超高带宽统一总线（UB）全对等互联的超节点平台。CloudMatrix-Infer 推理系统的三大创新是：**对等 PDC 分离架构**（Prefill/Decode/Cache 独立子集群）、**EP320 大规模专家并行**（解码集群使用 320 个 NPU die 做全量专家并行）、以及针对 Ascend 硬件的深度优化（AIV-Direct 通信、INT8 量化、MLA 算子融合、MTP 流水线）。在 DeepSeek-R1 671B 上，预填充计算效率达 4.45 tokens/s/TFLOPS，解码效率 1.29 tokens/s/TFLOPS，**在 tokens/s/TFLOPS 这一核心效率指标上超越 H800 和 H100 基线**。==其实核心就是UB的带宽加强了MoE的scale，有助于大EP，但是实际上与华为的人交流910C在FFN还是没打满算力==.
 
 ## 🏷️ 元数据
 - **论文标题**: Serving Large Language Models on Huawei CloudMatrix384
@@ -22,7 +22,7 @@ tags:
 ---
 
 ## 🕸️ 知识图谱索引
-- **关键词 (Keywords)**: #MoE #专家并行 #LLM推理服务 #KV-Cache #Ascend-NPU #PDC分离 #MLA优化 #INT8量化
+- **关键词 (Keywords)**: #MoE #专家并行 #LLM推理服务 #KV-Cache #Ascend-NPU #PDC分离 #超节点 #昇腾 #INT8量化 #推理成本
 - **前置知识 (Prerequisites)**: [[KV稀疏调研]], [[Continuum]]
 - **相关节点 (Related Notes)**: [[ZipServ]], [[ShiftParallelism]]
 - **向下延申 (Successors)**: 可关注 UB-Mesh 网络架构论文（arXiv:2503.20377）和 Pangu Ultra MoE（arXiv:2505.04519）
@@ -39,7 +39,7 @@ DeepSeek-R1/V3（671B，256 路由专家，Top-8 激活）的推理面临与稠�
 
 1. **通信与计算无法有效重叠**：H800 上的 DeepEP 实现在 EP256 时 Dispatch 延迟 194 µs、Combine 延迟 360 µs，成为每个 Transformer 层的显著开销
 2. **KV Cache 管理割裂**：Prefill 和 Decode 混在同一 GPU 池中竞争资源，缓存数据通过高延迟网络传输
-3. **软件算子未针对异构核优化**：Ascend 910 拥有 AIC（AI Cube Core，矩阵计算）和 AIV（AI Vector Core，向量计算）两类异构核心，直接移植 CUDA 算子无法发挥硬件潜力
+3. **软件算子未针对异构核优化**：Ascend 910 拥有 AIC（AI Cube Core，矩阵计算）和 AIV（AI Vector Core，向量计算）两类异构核心，直接移植 CUDA 算子无法发挥硬件潜力。==这部分是解决昇腾的问题==
 
 ### 相关工作对比
 
@@ -96,7 +96,7 @@ EP320 是本文最激进的创新——整个解码集群只有 320 个 NPU die�
 传统路径：AIV 核 → SDMA 引擎（启动开销）→ UB 网络 → 目标 NPU
 优化路径：AIV 核 **直接写** → UB 网络 → 目标 NPU 内存
 
-消除 SDMA 的启动延迟，对解码阶段（每层延迟约 600–900 µs）影响显著。
+消除 SDMA 的启动延迟，对解码阶段（每层延迟约 600–900 µs）影响显著。 ==一种GDA加Load/Store实践，最关键的是节省SM了==
 
 **② 早期 INT8 量化（Early Quantization）**
 
@@ -105,11 +105,11 @@ EP320 是本文最激进的创新——整个解码集群只有 320 个 NPU die�
 $$\text{BF16 消息大小} = 7168 \times 2 = 14,336 \text{ B} \approx 14.3 \text{ KB}$$
 $$\text{INT8 消息大小} = 7168 \times 1 + 512 \text{（scale对齐）} = 7,680 \text{ B} \approx 7.5 \text{ KB}$$
 
-**通信数据量减少约 47.5%**，直接降低 All-to-All 通信的带宽压力。
+**通信数据量减少约 47.5%**，直接降低 All-to-All 通信的带宽压力。==只是解决昇腾不支持FP8的问题
 
 **③ 静态预分配缓冲区 + 双缓冲**
 
-预先为 FusedDispatch 和 FusedCombine 分配固定大小缓冲区（容量 = rank数 × max_tokens × 消息大小），消除动态内存分配的 CPU 开销，双缓冲避免数据竞争。
+预先为 FusedDispatch 和 FusedCombine 分配固定大小缓冲区（容量 = rank数 × max_tokens × 消息大小），消除动态内存分配的 CPU 开销，双缓冲避免数据竞争。==这点基本都做了==
 
 ### 四、MLA 算子融合优化
 
@@ -184,7 +184,9 @@ DeepSeek-R1 支持多 token 预测（MTP），但 k+1 个计算图的串行调�
 ### 局限性
 
 1. **解码原始吞吐略低于高配 H800**：batch=96 时 CM384 解码 1,943 tok/s，而 H800 Profile（batch=128）达 2,325 tok/s；batch 差异使直接比较有失公平，但差距客观存在
-2. **大 EP 度下 Dispatch 带宽下降**：EP8 时 Dispatch 带宽 71 GB/s，EP256 时降至 54 GB/s，大规模并行下存在可扩展性瓶颈（论文承认留待未来优化）
+2. **大 EP 度下 Dispatch 带宽下降**：EP8 时 Dispatch 带宽 71 GB/s，EP256 时降至 54 GB/s，大规模并行下存在可扩展性瓶颈（论文承认留待未来优化）。 
+> EP 度增大 → 每条 All-to-All 消息变小 → 固定启动延迟占比上升 → 有效带宽利用率下降。这是网络通信中"小消息效率低"的经典问题，与硬件本身无关，是 All-to-All 通信的内在特性。解决方向通常是消息合并（message
+  coalescing）或者异步流水来掩盖启动延迟
 3. **实验仅限单超节点（256 NPU）**：跨超节点的 RDMA 互联场景性能未充分验证
 4. **INT8 量化部分精度轻微下降**：如 DROP（3-shot F1）：90.42 vs API 91.02，LiveCodeBench：63.80 vs API 63.44，整体可接受但非零损失
 

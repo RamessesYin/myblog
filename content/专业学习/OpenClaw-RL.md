@@ -10,7 +10,7 @@ tags:
 
 ## 🧠 核心摘要 (TL;DR)
 
-> 现有 GRPO/PPO 等方法都在**离线批量模式**下工作，Agent 每次交互产生的"下一状态信号"（用户回复、执行结果）被白白丢弃。OpenClaw-RL 提出从实时交互信号中恢复两类被浪费的学习信号：通过 PRM 法官转化为标量奖励的**评估信号**（Binary RL），以及通过 Hindsight hint 构造 token 级方向性优势的**指导信号**（OPD）——无需 Critic 网络，无需 group 采样，适用于无法构造 group structure 的真实对话场景。
+> 现有 GRPO/PPO 等方法都在**离线批量模式**下工作，Agent 每次交互产生的"下一状态信号"（用户回复、执行结果）被白白丢弃。OpenClaw-RL 提出从实时交互信号中恢复两类被浪费的学习信号：通过 PRM 法官转化为标量奖励的**评估信号**（Binary RL），以及通过 Hindsight hint 构造 token 级方向性优势的**指导信号**（OPD）——无需 Critic 网络，无需 group 采样，适用于无法构造 group structure 的真实对话场景。==可以在agent场景持续在线学习==
 
 ## 🏷️ 元数据
 - **论文标题**: OpenClaw-RL: Train Any Agent Simply by Talking
@@ -21,7 +21,7 @@ tags:
 ---
 
 ## 🕸️ 知识图谱索引
-- **关键词 (Keywords)**: #强化学习 #LLM-Agent #优势估计 #在线学习 #PRM #过程奖励 #知识蒸馏 #Token级优势
+- **关键词 (Keywords)**: #强化学习 #OpenClaw #RL #LLM-Agent #优势估计 #在线学习 #PRM #过程奖励 #知识蒸馏 #优势函数
 - **前置知识 (Prerequisites)**: PPO/GRPO 基础，LLM RLVR 范式
 - **相关节点 (Related Notes)**: [[RL中的KV稀疏讨论]]
 - **向下延申 (Successors)**: DAPO (arXiv:2503.14476), Dr.GRPO (arXiv:2503.20783), RLAnything
