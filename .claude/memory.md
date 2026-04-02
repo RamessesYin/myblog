@@ -238,4 +238,25 @@ tags:
 
 ---
 
-*最后更新: 2026-03-31*
+---
+
+## 🖼️ 图片插入规范（Quartz v4 + GitHub Pages）
+
+> 站点部署在 `https://ramessesyin.github.io/myblog/`，baseUrl = `RamessesYin.github.io/myblog`，图片路径需带 `/myblog` 前缀。
+
+### 图片存放位置
+- 统一放在 `content/assets/<主题名>/` 目录下，例如 `content/assets/AFD/`
+- **不要**放在 md 文件同级目录（目录太乱），**不要**放在 md 文件的子目录 `images/`（Quartz 会把相对路径转成 `../../images/xxx`，导致跨层级路径错误）
+
+### 文档中引用方式
+```markdown
+![图片说明](/myblog/AFD/image1.png)
+```
+- 必须用**绝对路径**，以 `/myblog/` 开头
+- 不要用相对路径（如 `images/image1.png` 或 `./image1.png`），Quartz 会将其错误地转换为相对 URL
+
+### 原理说明
+- Quartz 处理相对路径时会基于页面 URL 拼接，导致子目录页面的图片路径跳级错误
+- 使用绝对路径 `/myblog/xxx` 可绕过此问题，直接命中 GitHub Pages 静态资源
+
+*最后更新: 2026-04-02*

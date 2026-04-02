@@ -27,29 +27,29 @@ tags:
 
 字节测算 H20 的显存成本最低，而 L40S 的计算成本最低，因此异构的 A 部署在 H20，F 部署在 L40S，单位吞吐成本最低。
 
-![字节GPU成本分析](/myblog/AFD/image1.png)
+![字节GPU成本分析](/myblog/assets/AFD/image1.png)
 
 阶跃的测算中同样 H20 显存成本最低，H800 是所列 GPU 中计算成本最低的。
 
-![阶跃GPU成本分析](/myblog/AFD/image2.png)
+![阶跃GPU成本分析](/myblog/assets/AFD/image2.png)
 
 阶跃进一步细化了 A 和 F 的成本测算，随着序列变长，A 的成本近似线性增加，但 F 成本不变。
 
-![A与F成本随序列长度变化](/myblog/AFD/image3.png)
+![A与F成本随序列长度变化](/myblog/assets/AFD/image3.png)
 
 根据上述表格，选取最优硬件合并后，理论上 AFD 具有 cost 优势。
 
-![AFD成本优势](/myblog/AFD/image4.png)
+![AFD成本优势](/myblog/assets/AFD/image4.png)
 
 阶跃的模型 Step3 可以用较少的卡（AFD），在同样 SLA 的要求下实现更高的吞吐，虽然激活参数量更高（38B），但毕竟模型结构不同，Attention 算法不同，并不是完全的同类对比。
 
-![Step3 AFD吞吐对比](/myblog/AFD/image5.png)
+![Step3 AFD吞吐对比](/myblog/assets/AFD/image5.png)
 
 由于 MLA 计算强度的问题，DSv3 在许多其他 GPU 上的部署效率不够理想，阶跃定制实现了 MFA 降低计算强度。
 
-![MFA计算强度对比](/myblog/AFD/image6.png)
+![MFA计算强度对比](/myblog/assets/AFD/image6.png)
 
-![MFA详情](/myblog/AFD/image7.png)
+![MFA详情](/myblog/assets/AFD/image7.png)
 
 ---
 
@@ -61,13 +61,13 @@ tags:
 
 好处是，可以通过分别 scale A 和 F 做出接近完美的流水线。尤其 F 是完全无状态，可以微服务化，动态扩缩容。
 
-![阶跃三阶段流水线设计](/myblog/AFD/image8.png)
+![阶跃三阶段流水线设计](/myblog/assets/AFD/image8.png)
 
-![字节四阶段流水线设计](/myblog/AFD/image9.png)
+![字节四阶段流水线设计](/myblog/assets/AFD/image9.png)
 
 与之相比，DeepSeek 采取的大 EP 不分离方案中，实际上只需要两个 micro batch 就能实现比较好的掩盖。
 
-![大EP两阶段重叠对比](/myblog/AFD/image10.png)
+![大EP两阶段重叠对比](/myblog/assets/AFD/image10.png)
 
 ### 容易放大负载不平衡
 
@@ -147,7 +147,7 @@ $$\boxed{S \geq \frac{H \times \text{FLOPs\_HW} \times L}{\text{Net} \times \tex
 
 这一计算并不完全准确，因为加 batch 的同时可能也会面临显存容量与显存带宽的瓶颈，使得无法满足 SLA 要求或者 Attn 浪费很多。但是它提示了**低稀疏度其实会加剧通信瓶颈**。
 
-![稀疏度约束与通信瓶颈示意](/myblog/AFD/image11.png)
+![稀疏度约束与通信瓶颈示意](/myblog/assets/AFD/image11.png)
 
 Step3 的 co-design 在于，模型为了能 fit 不同 GPU 的最低稀疏下界，做成了 48 选 3 的 0.063 稀疏度，比 DSv3 的 0.031（256 选 8）要高很多。
 
@@ -165,7 +165,7 @@ DSv3 因为不需要三阶段流水线，只需要两阶段，所以容忍的稀
 
 如果不做 A/F 分离，L40S 的孱弱存储带宽与通信带宽去部署 Attention 的话，算力利用率也会下降很多，性价比降低，TPOT 也会进一步上升。
 
-![字节异构部署成本对比](/myblog/AFD/image12.png)
+![字节异构部署成本对比](/myblog/assets/AFD/image12.png)
 
 另一个策略是可以使用 L20 这类特别的"瘸腿卡"，它的显存带宽是 864 GB/s，但算力只有 239T，正好适合用在计算强度低的 Attn 场景，通过 TP scale 满足需要的时延，而在 FFN 阶段用更强算力的卡，降低 FFN 阶段的时延。H20 也是类似思路。
 
@@ -246,7 +246,7 @@ DeepSeek 模型的专家数量很多，高达 256，所以其可以扩展的大 
 
 根据前面的分析，可知很多场景下可能并不必须 A/F 分离——光靠 scale EP 也能保住 FFN 的效率。但阶跃的作者认为，A/F 分离可以用更小的规模达成同样的效果。这是很有收益的，因为多卡资源更难获得，同时可以减少不均衡，并行度越高越容易出现严重 straggler。
 
-![更小规模达成同等效果对比](/myblog/AFD/image13.png)
+![更小规模达成同等效果对比](/myblog/assets/AFD/image13.png)
 
 但是我对这里还是有所疑问的，论文中给出的实验数据看似不错，实际上并不是同类对比：
 
