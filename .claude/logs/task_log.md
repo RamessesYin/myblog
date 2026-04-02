@@ -11,6 +11,16 @@
 
 ---
 
+## [2026-04-01 完成]  OpenClaw-RL — 从实时 Agent 交互信号在线强化学习
+- **原文**: https://arxiv.org/abs/2603.10165
+- **正式笔记**: content/专业学习/OpenClaw-RL.md
+- **参考文献**: content/参考文献/paper/OpenClaw-RL_paper.md
+- **关键词**: #强化学习 #LLM-Agent #优势估计 #在线学习 #PRM #Token级优势
+- **摘要**: OpenClaw-RL 从 Agent 交互的"下一状态信号"中恢复两类被浪费的学习信号：PRM 多数投票构造标量 Advantage 的 Binary RL，以及通过 Hindsight hint 构造 token 级方向性优势的 OPD，二者组合在 36 次交互内实现显著个性化改善，无需 Critic 网络或 group 采样。
+- **对比检索**: GRPO/DeepSeek-R1 (arXiv:2501.12948), DAPO (arXiv:2503.14476), PPO (Schulman et al. arXiv:1707.06347), HER, STaR, RLAnything
+
+---
+
 ## [2026-04-01 完成]  CloudMatrix384 — 华为 Ascend 910 MoE 大规模推理服务
 - **原文**: https://arxiv.org/abs/2506.12708
 - **正式笔记**: content/专业学习/CloudMatrix384.md
