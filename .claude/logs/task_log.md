@@ -31,6 +31,16 @@
 
 ---
 
+## [2026-04-03 14:00] 大模型量化 综述
+- **专题文件**: todo/量化.md
+- **正式笔记**: content/专业学习/大模型量化综述.md
+- **参考文献**: N/A（综述任务）
+- **关键词**: #量化 #quant #fp4 #fp8 #混合精度量化 #qat #计算加速 #显存降低 #通信量降低
+- **摘要**: 系统覆盖 LLM 量化的 10 个核心问题：量化原理与离群值难点、量化粒度（Per-Tensor/Per-Token/Per-Channel 及 Tensor Core 硬件限制）、权重/激活/KV Cache 量化差异、NVIDIA NVFP4 (E2M1 + FP8 block scale) 规格与 Blackwell 硬件支持、vLLM 量化算子融合实现（Marlin/DeepGEMM/Triton）、QAT 方法（LLM-QAT/EfficientQAT/BitNet b1.58/QLoRA）、精度评估体系、离群值抑制四大方案（LLM.int8/SmoothQuant/QuaRot/SpinQuant）、混合精度与精度回退策略，以及伪量化（Fake Quantization）的原理与实现。
+- **来源文件**: todo/量化.md（任务三批处理）
+
+---
+
 ## [2026-03-31 完成]  Continuum — KV Cache TTL 多轮 Agent 调度
 - **原文**: https://arxiv.org/pdf/2511.02230
 - **正式笔记**: content/专业学习/Continuum.md
