@@ -1,0 +1,16 @@
+# 任务目标
+这是一个**任务一**类型的任务：读下面给定的论文，生成笔记
+
+
+# 专题与关键词
+无
+
+# 参考论文
+https://mp.weixin.qq.com/s/m9PfekOtvTJaA3Jr4gdxqA
+https://arxiv.org/abs/2603.18815
+
+# 需要回答的问题
+无
+
+# 我的思考
+无
