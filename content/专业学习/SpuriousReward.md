@@ -1,5 +1,5 @@
 ---
-title: "虚假奖励悖论：RLVR 如何激活 LLM 的记忆捷径"
+title: "RLVR虚假奖励与记忆捷径"
 tags:
   - RLVR
   - reinforcement-learning

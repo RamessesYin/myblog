@@ -1,5 +1,5 @@
 ---
-title: "ThunderAgent：面向智能体工作流的程序感知推理系统"
+title: "ThunderAgent"
 tags:
   - agentic-inference
   - KV-cache

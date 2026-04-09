@@ -1,5 +1,5 @@
 ---
-title: "ProRL Agent：面向多轮 LLM Agent 的 RL 训练 Rollout 即服务基础设施"
+title: "ProRL Agent"
 tags:
   - NVIDIA
   - RL训练基础设施

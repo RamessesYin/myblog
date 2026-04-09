@@ -1,10 +1,11 @@
 ---
-title: "RLix：面向 RL 实验的多任务 GPU 调度与资源共享框架"
+title: "RLix"
 tags:
   - 强化学习
   - GPU调度
   - 资源管理
   - LLM训练
+  - RL
   - 多任务
 ---
 

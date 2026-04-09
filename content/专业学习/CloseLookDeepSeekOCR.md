@@ -1,5 +1,5 @@
 ---
-title: "视觉能力还是语言拐杖？DeepSeek-OCR深度解析"
+title: "DeepSeek-OCR"
 tags:
   - OCR
   - VLM

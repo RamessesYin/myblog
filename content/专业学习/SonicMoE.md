@@ -1,11 +1,12 @@
 ---
-title: "SonicMoE：面向细粒度 MoE 的 IO 与 Tile 感知训练加速"
+title: "SonicMoE"
 tags:
   - MoE
   - GPU优化
   - 训练加速
   - 显存优化
   - CUDA内核
+  - GEMM加速
 ---
 
 ## 🧠 核心摘要 (TL;DR)

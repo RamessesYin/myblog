@@ -1,5 +1,5 @@
 ---
-title: "MetaAttention：跨硬件与算法的统一高性能注意力框架"
+title: "MetaAttention"
 tags:
   - attention
   - GPU

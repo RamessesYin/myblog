@@ -1,5 +1,5 @@
 ---
-title: "RL 超越基模边界之问：RLVR 是在创造能力还是加速搜索？"
+title: "RLVR与基模能力边界"
 tags:
   - 强化学习
   - LLM推理

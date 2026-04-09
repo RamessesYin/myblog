@@ -1,5 +1,5 @@
 ---
-title: "MagiAttention：面向超长上下文与异构 Mask 的分布式注意力"
+title: "MagiAttention"
 tags:
   - 分布式训练
   - 上下文并行

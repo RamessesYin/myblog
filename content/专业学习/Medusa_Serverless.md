@@ -1,5 +1,5 @@
 ---
-title: "Medusa：无服务器 LLM 推理物化加速"
+title: "Medusa无服务器推理加速"
 tags:
   - serverless
   - LLM推理

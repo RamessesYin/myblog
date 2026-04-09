@@ -1,5 +1,5 @@
 ---
-title: "TTT-Discover：推理时的自我进化——用强化学习打破模型能力边界"
+title: "TTT-Discover"
 tags:
   - test-time-training
   - reinforcement-learning

@@ -1,5 +1,5 @@
 ---
-title: "LongCat-Flash-Thinking：美团 Agentic Reasoning 实践"
+title: "美团LongCat-Flash-Thinking"
 tags:
   - agentic-reasoning
   - mixture-of-experts
