@@ -201,3 +201,26 @@
   - task4.md：微信公众号链接无法抓取 + WebSearch RPM 限速，未处理
 
 ---
+
+## [2026-04-09] 任务三批处理汇总（task1-15，本次新增）
+- **处理文件数**: 15 个
+- **生成笔记列表**:
+  - content/专业学习/TurboQuant.md（来自 todo/task1.md）
+  - content/专业学习/ClaudeCode与AutoMemory.md（来自 todo/task2.md）
+  - content/专业学习/M2RL.md（来自 todo/task3.md）
+  - content/专业学习/DWDP.md（来自 todo/task4.md）
+  - content/专业学习/SSD代码生成自蒸馏.md（来自 todo/task5.md）
+  - content/专业学习/OEL.md（来自 todo/task6.md）
+  - content/专业学习/ACE.md（来自 todo/task7.md）
+  - content/专业学习/Composer2.md（来自 todo/task8.md）
+  - content/专业学习/SparseButCritical.md（来自 todo/task9.md）
+  - content/专业学习/FIPO.md（来自 todo/task10.md）
+  - content/专业学习/Composer2.md（来自 todo/task11.md，已存在，跳过重建）
+  - content/专业学习/FIPO.md（来自 todo/task12.md，已存在，跳过重建）
+  - content/专业学习/SparseCritical.md（来自 todo/task13.md）
+  - content/专业学习/TriAttention.md（来自 todo/task14.md）
+  - content/专业学习/ThinkTwice.md（来自 todo/task15.md）
+- **移入 done 目录**: 全部 15 个文件已移入 done/
+- **跳过/失败**: task11/12 与 task8/10 为重复论文，sub-agent 正确识别已有笔记并跳过重建
+
+---

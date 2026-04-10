@@ -263,11 +263,13 @@
 > **关键**：任务一的 sub-agent 只看 `task1_spec.md`，任务二的 sub-agent 只看 `task2_spec.md`，两者互不干扰，也不会加载整个 CLAUDE.md。
 
 Sub-agent 返回后：
-1. **将该 todo 文件移入 done 目录**：
+1. **重命名并移入 done 目录**：将 todo 文件以**笔记标题**重命名后移入 done/。命名规则：取生成的阅读笔记文件名（不含路径和后缀），例如笔记生成为 `content/专业学习/大模型量化调研.md`，则：
    ```bash
-   mv /mnt/yinhao/note/myblog/todo/<文件名>.md /mnt/yinhao/note/myblog/done/<文件名>.md
+   mv /mnt/yinhao/note/myblog/todo/<原文件名>.md /mnt/yinhao/note/myblog/done/大模型量化调研.md
    ```
-2. **立即向用户汇报进度**：`✅ 已完成第 X/Y 个：<文件名> → <生成的笔记路径>`
+   - 文件名取笔记的中文标题（与 `content/专业学习/` 下生成的 `.md` 文件同名）
+   - 若 sub-agent 未返回笔记文件名（任务失败等情况），则以 `<原文件名>_<YYYYMMDD>.md` 格式重命名后移入 done/，例如 `task1_20260409.md`，避免与后续同名文件冲突
+2. **立即向用户汇报进度**：`✅ 已完成第 X/Y 个：<原文件名> → <生成的笔记路径>`
 3. 继续处理下一个文件
 
 #### 第三步：追加批量汇总日志

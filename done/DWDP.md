@@ -6,7 +6,7 @@
 无
 
 # 参考论文
-https://mp.weixin.qq.com/s/HNmClSrS6F1kgNP5xzNpAQ
+https://arxiv.org/pdf/2604.01621
 
 # 需要回答的问题
 无
