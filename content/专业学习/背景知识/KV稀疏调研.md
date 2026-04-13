@@ -1,5 +1,5 @@
 ---
-title: "KV稀疏调研综述"
+title: "KV稀疏调研"
 tags:
   - KV-Cache
   - LLM
