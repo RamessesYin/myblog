@@ -4,6 +4,55 @@
 
 ---
 
+## [2026-04-13 22:00] MagiAttention — 分布式注意力线性可扩展
+- **原文**: https://github.com/SandAI-org/MagiAttention
+- **正式笔记**: content/专业学习/MagiAttention.md
+- **参考文献**: content/参考文献/blog/MagiAttention_blog.md
+- **关键词**: #context-parallelism #distributed-attention #long-context #heterogeneous-mask #flash-attention #video-generation
+- **摘要**: MagiAttention（Sand.ai，2025）针对超长上下文（4M token）与异构注意力掩码的分布式训练，提出 AttnSlice 内核抽象 + 块级负载均衡 Dispatch Solver + GroupCast/GroupReduce 零冗余通信原语 + 自适应多阶段计算-通信重叠四层协同设计，在 H100/B200 上实现近线性可扩展性，已部署于 MAGI-1（240B 参数视频生成模型）。
+- **来源文件**: todo/task12.md（任务三批处理）
+
+---
+
+## [2026-04-13 22:30] AttentionEngine — 统一多硬件注意力框架
+- **原文**: https://arxiv.org/abs/2502.15349 / DOI: 10.1145/3774934.3786444
+- **正式笔记**: content/专业学习/AttentionEngine.md
+- **参考文献**: content/参考文献/paper/AttentionEngine_paper.md
+- **关键词**: #attention #kernel-optimization #multi-backend #compiler #llm-inference
+- **摘要**: AttentionEngine（SJTU/PKU/Microsoft，ASPLOS 2025）将注意力机制抽象为「相关性评分 + 聚合」两步，通过可定制化模板 + IntermediateTensor 驱动的两层调度策略，自动生成覆盖 NVIDIA/AMD GPU 的高性能 kernel，对现有库不支持的配置实现最高 10.4× 加速，端到端推理/训练平均 1.4×。
+- **来源文件**: todo/task13.md（任务三批处理）
+
+---
+
+## [2026-04-13 17:30] NVIDIA BlueField-3 DPU Datasheet
+- **原文**: https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/documents/datasheet-nvidia-bluefield-3-dpu.pdf
+- **正式笔记**: content/专业学习/BlueField3DPU.md
+- **参考文献**: content/参考文献/blog/BlueField3DPU_blog.md
+- **关键词**: #dpu #smartnic #network-offload #rdma #nvme-of #pcie5 #security #infrastructure #data-center
+- **摘要**: NVIDIA BlueField-3 是第三代数据中心基础设施片上系统，集成 16 核 Arm A78 + 400Gb/s 以太网/NDR InfiniBand + PCIe Gen 5.0 × 32 + 硬件加速引擎（网络/存储/安全/HPC），通过 DOCA 软件框架将基础设施负载从主机 CPU 卸载，适用于云计算、AI 集群、5G 等场景。
+- **来源文件**: todo/task3.md（任务三批处理）
+
+---
+
+## [2026-04-13 14:30] Llumnix
+- **原文**: https://arxiv.org/abs/2406.03243
+- **正式笔记**: content/专业学习/Llumnix.md
+- **参考文献**: content/参考文献/paper/Llumnix_paper.md
+- **关键词**: #LLM推理 #请求调度 #KV-Cache #系统优化 #负载均衡 #OSDI
+- **摘要**: Llumnix 通过跨实例运行时动态请求迁移（含 KV Cache 状态），统一解决 LLM 推理服务中的负载不均衡、内存碎片、请求干扰和优先级差异化问题，尾延迟降低 10×，成本节省 36%，发表于 OSDI 2024。
+
+---
+
+## [2026-04-13 15:10] KAT-Coder-V2
+- **原文**: https://arxiv.org/abs/2603.27703
+- **正式笔记**: content/专业学习/KATCoder.md
+- **参考文献**: content/参考文献/paper/KATCoder_paper.md
+- **关键词**: #agentic-coding #reinforcement-learning #multi-domain #swe-bench #on-policy-distillation
+- **摘要**: 快手 KwaiKAT 团队提出 Specialize-then-Unify 范式，将编程任务分解为五个专家域独立 RL 后再通过 on-policy 蒸馏统一，配合 MCLA 稳定多域训练和 Tree Training 加速（6.2×），在 SWE-bench Verified 上达到 79.6%。
+- **备注**: 来源文件 todo/task5.md（任务三批处理）
+
+---
+
 ## [2026-03-31 初始化]
 - **操作**: 初始化项目 Memory 文件与日志系统
 - **创建文件**: `.claude/memory.md`、`.claude/logs/task_log.md`
@@ -202,25 +251,133 @@
 
 ---
 
-## [2026-04-09] 任务三批处理汇总（task1-15，本次新增）
-- **处理文件数**: 15 个
-- **生成笔记列表**:
-  - content/专业学习/TurboQuant.md（来自 todo/task1.md）
-  - content/专业学习/ClaudeCode与AutoMemory.md（来自 todo/task2.md）
-  - content/专业学习/M2RL.md（来自 todo/task3.md）
-  - content/专业学习/DWDP.md（来自 todo/task4.md）
-  - content/专业学习/SSD代码生成自蒸馏.md（来自 todo/task5.md）
-  - content/专业学习/OEL.md（来自 todo/task6.md）
-  - content/专业学习/ACE.md（来自 todo/task7.md）
-  - content/专业学习/Composer2.md（来自 todo/task8.md）
-  - content/专业学习/SparseButCritical.md（来自 todo/task9.md）
-  - content/专业学习/FIPO.md（来自 todo/task10.md）
-  - content/专业学习/Composer2.md（来自 todo/task11.md，已存在，跳过重建）
-  - content/专业学习/FIPO.md（来自 todo/task12.md，已存在，跳过重建）
-  - content/专业学习/SparseCritical.md（来自 todo/task13.md）
-  - content/专业学习/TriAttention.md（来自 todo/task14.md）
-  - content/专业学习/ThinkTwice.md（来自 todo/task15.md）
-- **移入 done 目录**: 全部 15 个文件已移入 done/
-- **跳过/失败**: task11/12 与 task8/10 为重复论文，sub-agent 正确识别已有笔记并跳过重建
+---
+
+## [2026-04-13 16:00] Meta-Harness: End-to-End Optimization of Model Harnesses
+- **原文**: https://yoonholee.com/meta-harness/paper.pdf（arXiv: 2603.28052）
+- **正式笔记**: content/专业学习/MetaHarness.md
+- **参考文献**: content/参考文献/paper/MetaHarness_paper.md
+- **关键词**: #agent #harness #prompt-optimization #meta-learning #llm-evaluation #benchmark
+- **摘要**: Meta-Harness 提出将诊断文件系统（完整源码+执行追踪+得分，高达 10M token）提供给 Agentic 提议者，通过迭代搜索自动优化模型 Harness 代码，文本分类超越 ACE 7.7 分（并减少 4× token），IMO 数学推理平均提升 4.7 分，TerminalBench-2 编程 Haiku 4.5 排名第 1。
+- **来源文件**: todo/task1.md（任务三批处理）
 
 ---
+
+## [2026-04-13 15:30] Blackwell GPU 微基准测试与架构深度分析
+- **原文**: https://arxiv.org/abs/2512.02189v3
+- **正式笔记**: content/专业学习/BlackwellMicrobenchmark.md
+- **参考文献**: content/参考文献/paper/BlackwellMicrobenchmark_paper.md
+- **关键词**: #gpu-architecture #microbenchmark #blackwell #tensor-core #fp4 #llm-inference
+- **摘要**: 本文提出基于 PTX 的开源微基准套件，系统解剖 NVIDIA Blackwell B200 的 TMEM（256KB 张量内存）、硬件解压引擎（DE，ANS 吞吐达 539 GB/s）、第五代张量核心（BF16 延迟从 128 降至 11 周期）及 FP4/FP6 支持，实测 B200 相比 H200 在 LLM 推理上获得 1.16–1.97× 加速，训练吞吐提升 1.55–1.85×，能效改善 32%。
+- **来源文件**: todo/task2.md（任务三批处理）
+
+---
+
+## [2026-04-13 18:30] Mirage Persistent Kernel — 将 LLM 推理编译为单一 Megakernel
+- **原文**: https://github.com/mirage-project/mirage（arXiv: 2512.22219）
+- **正式笔记**: content/专业学习/MiragePersistentKernel.md
+- **参考文献**: content/参考文献/blog/Mirage_blog.md
+- **关键词**: #gpu-compiler #kernel-fusion #llm-inference #persistent-kernel #tensor-program #megakernel
+- **摘要**: Mirage Persistent Kernel（MPK）将整个 LLM 推理图编译为单个 megakernel，通过 SM 级图表示（ttGraph）、去中心化调度运行时、跨算子软流水线三项核心机制消除 kernel launch 开销与跨算子同步气泡，端到端推理延迟降低 1.2×–6.7×（单批次场景 1.7×），是 Mirage OSDI 2025 超优化器的运行时扩展。
+- **来源文件**: todo/task9.md（任务三批处理）
+
+- **原文**: https://arxiv.org/abs/2603.12201
+- **正式笔记**: content/专业学习/IndexCache.md
+- **参考文献**: content/参考文献/paper/IndexCache_paper.md
+- **关键词**: #sparse-attention #cross-layer #kv-cache #long-context #indexer #deepseek
+- **摘要**: IndexCache 发现 DeepSeek Sparse Attention 的 O(L²) Indexer 在极长上下文下成为新瓶颈，利用相邻层 top-k 选择 70–100% 重叠的规律，提出 Full/Shared 层划分 + 贪心层搜索（训练无关）+ 多层蒸馏损失（训练感知）方案，在 30B 模型 200K 上下文下实现 1.82× Prefill 和 1.48× Decode 加速，训练感知版本精度甚至超越全量 Indexer 基线。
+- **来源文件**: todo/task4.md（任务三批处理）
+
+---
+
+## [2026-04-13 20:30] CUDA-L2 — 用强化学习超越 cuBLAS 的矩阵乘法内核
+- **原文**: https://arxiv.org/abs/2512.02551v1
+- **正式笔记**: content/专业学习/CUDA-L2.md
+- **参考文献**: content/参考文献/paper/CUDA-L2_paper.md
+- **关键词**: #cuda #reinforcement-learning #gpu-optimization #matmul #llm-code-generation #hgemm
+- **摘要**: CUDA-L2（DeepReinforce Team, 2025）将 LLM 与三阶段渐进强化学习结合，以 NCU profiling + RAG 上下文辅助，在 A100 上 1000 种 HGEMM 配置的离线评测中比 cuBLAS 快 19.2%、比 cuBLASLt-AutoTuning 快 11.4%，服务器模式下胜率高达 79.3%–95.7%，是首个系统性超越 cuBLAS 的 RL 驱动 CUDA 内核生成方案。
+- **来源文件**: todo/task8.md（任务三批处理）
+
+---
+
+## [2026-04-13 17:45] PivotRL — 低算力开销下的高精度 Agentic 后训练
+- **原文**: https://arxiv.org/abs/2603.21383
+- **正式笔记**: content/专业学习/PivotRL.md
+- **参考文献**: content/参考文献/paper/PivotRL_paper.md
+- **关键词**: #reinforcement-learning #agentic-ai #post-training #pivot-points #catastrophic-forgetting #LLM #NVIDIA
+- **摘要**: PivotRL 通过"关键转折点筛选（Pivot Points）"过滤71%的零学习信号步骤、"功能等价奖励（Functional Reward）"替代精确匹配，在仅需端到端 RL 1/4 回滚量的前提下，域内准确率提升 +14.11 pp，OOD 任务几乎无退化（+0.21 pp vs SFT 的 −9.48 pp），已部署于 NVIDIA Nemotron-3-Super-120B-A12B 生产模型。
+- **来源文件**: todo/task7.md（任务三批处理）
+
+---
+
+## [2026-04-13 20:45] Intra-Kernel Profiler (IKP) — CUDA 内核区域级性能剖析框架
+- **原文**: https://github.com/yao-jz/intra-kernel-profiler
+- **正式笔记**: content/专业学习/IntraKernelProfiler.md
+- **参考文献**: content/参考文献/blog/IntraKernelProfiler_blog.md
+- **关键词**: #gpu-profiling #cuda #nvbit #cupti #kernel-optimization #performance-analysis #warp-timing
+- **摘要**: IKP 是面向 CUDA 内核的区域级性能剖析框架，通过 Trace Profiler（lock-free ring buffer，~1% overhead）、NVBit Region Profiler（SASS 级指令归因）、CUPTI Collectors（injection-based 硬件计数器）三套互补后端，将 40+ 个性能指标精细归因到用户命名的代码区域，并在自包含的 IKP Explorer HTML 仪表盘中统一可视化，解决了传统 GPU 工具只能提供 kernel 级聚合指标的局限。
+- **来源文件**: todo/task10.md（任务三批处理）
+
+---
+
+## [2026-04-13 21:30] RAGEN-2: Reasoning Collapse in Agentic RL
+- **原文**: https://arxiv.org/abs/2604.06268
+- **正式笔记**: content/专业学习/RAGEN2.md
+- **参考文献**: content/参考文献/paper/RAGEN2_paper.md
+- **关键词**: #reinforcement-learning #agentic-rl #reasoning #entropy #mutual-information #template-collapse #GRPO #PPO
+- **摘要**: RAGEN-2 发现 Agentic RL 训练中的"模板坍塌"隐蔽失效模式，通过信息论分解 H(Z)=I(X;Z)+H(Z|X) 证明互信息（MI）才是推理质量的真正指标，提出 SNR-Aware Filtering（过滤低奖励方差样本）从根源抑制坍塌，在 4 种 RL 算法、0.5B-7B 规模、8 个 Agentic 环境中平均提升 +6.9 分。
+- **来源文件**: todo/task6.md（任务三批处理）
+
+---
+
+## [2026-04-13 22:30] Trillion-Parameter Reasoning RL with 10% GPUs
+- **原文**: https://macaron.im/mindlab/research/building-trillion-parameter-reasoning-rl-with-10-gpus
+- **正式笔记**: content/专业学习/TrillionParamRL.md
+- **参考文献**: content/参考文献/blog/TrillionParamRL_blog.md
+- **关键词**: #reinforcement-learning #lora #moe #distributed-training #post-training #trillion-parameter
+- **摘要**: Mind Lab 在 Kimi K2（1.04T 参数 MoE）上通过 LoRA + 4D 混合并行（TP/PP/EP/SP）实现 RL 训练，GPU 需求降至全参数方案的 10%；系统解决 MoE RL 训练的三类失稳模式（路由崩溃、梯度稀疏、KL 漂移）；核心实证：固定算力预算下大模型 LoRA RL 效果优于小模型全参 RL。
+- **来源文件**: todo/task15.md（任务三批处理）
+
+---
+
+## [2026-04-13 23:55] DistillSparse — 面向 LLM 强化学习的稀疏 rollout 稳定训练框架
+- **原文**: https://openreview.net/pdf?id=vMrhhCAgCA
+- **正式笔记**: content/专业学习/DistillSparse.md
+- **参考文献**: content/参考文献/paper/DistillSparse_paper.md
+- **关键词**: #sparse-attention #reinforcement-learning #kv-cache #lora #llm-inference #actor-policy-mismatch
+- **摘要**: DISTILLSPARSE（CMU+Intel+Amazon，ICLR 2026 SPOT Workshop）发现稀疏 rollout 导致 actor–policy 分布偏移（KL 散度高出 staleness 问题近 100×），提出 LoRA 在线蒸馏对齐稠密策略 + 奖励感知过采样过滤双组件框架，在 AIME24/25、AMC23、Math500 上匹配稠密基线，H200 16K 生成长度下实现 1.72× 端到端加速。
+- **来源文件**: todo/task14.md（任务三批处理）
+
+---
+
+## [2026-04-13] 任务三批处理汇总（task1-15，本轮）
+- **处理文件数**: 15 个
+- **成功生成笔记**:
+  - content/专业学习/MetaHarness.md（来自 todo/task1.md）
+  - content/专业学习/BlackwellMicrobenchmark.md（来自 todo/task2.md）
+  - content/专业学习/BlueField3DPU.md（来自 todo/task3.md）
+  - content/专业学习/IndexCache.md（来自 todo/task4.md）
+  - content/专业学习/KATCoder.md（来自 todo/task5.md）
+  - content/专业学习/RAGEN2.md（来自 todo/task6.md）
+  - content/专业学习/PivotRL.md（来自 todo/task7.md）
+  - content/专业学习/CUDA-L2.md（来自 todo/task8.md）
+  - content/专业学习/MiragePersistentKernel.md（来自 todo/task9.md）
+  - content/专业学习/IntraKernelProfiler.md（来自 todo/task10.md）
+  - content/专业学习/ShiftParallelism.md（来自 todo/task11.md，补充相关工作）
+  - content/专业学习/MagiAttention.md（来自 todo/task12.md）
+  - content/专业学习/AttentionEngine.md（来自 todo/task13.md）
+  - content/专业学习/DistillSparse.md（来自 todo/task14.md）
+  - content/专业学习/TrillionParamRL.md（来自 todo/task15.md）
+- **全部移入 done 目录**: 15 个文件
+- **跳过/失败**: 无
+
+---
+
+## [2026-04-13 23:30] Shift Parallelism
+- **原文**: https://arxiv.org/abs/2509.16495
+- **正式笔记**: content/专业学习/ShiftParallelism.md
+- **参考文献**: content/参考文献/paper/ShiftParallelism_paper.md（已存在）
+- **关键词**: #Tensor-Parallelism #Data-Parallelism #Sequence-Parallelism #KV-Cache #LLM推理 #弹性并行
+- **摘要**: Shift Parallelism（Snowflake AI Research，2025）利用 TP 与 Ulysses SP 在注意力层 KV Cache 布局完全一致的不变性，构建轻量级运行时调度器，根据批次大小动态在 TP（低延迟）和 SP（高吞吐）之间零成本切换，在单一部署中同时实现两种策略的最优性能；集成 SwiftKV + SuffixDecoding 后，请求完成速度较最优吞吐方案提升 3.4×，吞吐较最优延迟方案提升 1.75×。补充了相关工作（先驱/对比/Follow-up）共 13 篇文献。
+- **来源文件**: todo/task11.md（任务三批处理）
+

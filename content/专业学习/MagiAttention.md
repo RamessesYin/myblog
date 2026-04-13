@@ -15,7 +15,7 @@ tags:
 - **论文标题**: MagiAttention: A Distributed Attention Towards Linear Scalability for Ultra-Long Context, Heterogeneous Mask Training
 - **发表机构/会议**: SandAI（arXiv 技术报告）
 - **年份**: 2025
-- **链接**: [[MagiAttention_paper|📄论文]] | [💻 Code](https://github.com/SandAI-org/MagiAttention)
+- **链接**: [[MagiAttention_blog|📄项目主页]] | [💻 Code](https://github.com/SandAI-org/MagiAttention)
 
 ---
 

@@ -44,6 +44,44 @@ tags:
 
 结合 **SwiftKV**（预填充计算优化）和 **Speculative Decoding**（推测解码），基于 Shift Parallelism 构建的 **Arctic Inference** 系统实现了推理性能的全面飞跃：相比最佳吞吐优化方案，请求完成速度提升 3.4 倍；相比最佳延迟优化方案，吞吐量提升 1.75 倍。
 
+### 📚 相关工作
+
+#### 🏛️ 先驱 / 奠基工作
+
+| 论文 | 机构/会议 | 核心贡献 | 与本文的关联 |
+|------|-----------|---------|-------------|
+| **Megatron-LM**（Narayanan 等，2021，arXiv:2104.04473，SC'21）| NVIDIA | 提出张量并行（TP）+ 流水线并行（PP）+ 数据并行（DP）的组合范式，成为大模型分布式训练与推理的事实标准 | Shift Parallelism 的 TP 模式直接沿用 Megatron-LM 的 All-Reduce 通信模式 |
+| **DeepSpeed Ulysses**（Jacobs 等，2023，arXiv:2309.14509）| Microsoft | 提出基于 All-to-All 的序列并行，将序列维度切分到多卡，通信量与序列长度成常数比例 | **直接先驱**：Shift Parallelism 的 SP 模式完全继承 Ulysses 的通信机制，发现其 KV Cache 布局与 TP 一致 |
+| **Ring Attention**（Liu 等，2023，arXiv:2310.01889）| UC Berkeley | 利用 blockwise 注意力 + ring 通信实现近无限上下文序列并行，通信与计算完全重叠 | 另一种 SP 路线，但 ring 通信的复杂性使其难以用于推理动态切换场景 |
+| **FlashAttention**（Dao 等，2022，arXiv:2205.14135，NeurIPS'22）| Stanford | IO-aware 精确注意力，利用分块 tiling 减少 HBM 读写，实现 15%+ 训练加速 | Shift Parallelism 内部的注意力计算依赖 FlashAttention 内核 |
+| **FlashAttention-2**（Dao，2023，arXiv:2307.08691）| Stanford | 改进并行化与工作分区，达到 A100 理论峰值的 50-73% FLOPs/s，速度较 FA1 提升约 2× | 进一步优化了 Shift Parallelism 所依赖的底层注意力计算效率 |
+| **GQA**（Ainslie 等，2023，arXiv:2305.13245，EMNLP'23）| Google | 提出 Grouped-Query Attention，减少 KV 头数量，降低 KV Cache 显存占用与带宽压力 | GQA 是 Llama 3 等测试模型的基础架构，影响 Shift Parallelism 中 KV Cache 的布局分析 |
+
+#### ⚖️ 直接对比 / 竞争方案
+
+| 论文 | 机构/会议 | 核心贡献 | 与本文的差异 |
+|------|-----------|---------|-------------|
+| **vLLM / PagedAttention**（Kwon 等，2023，arXiv:2309.06180，SOSP'23）| UC Berkeley | 受 OS 虚拟内存启发，提出 PagedAttention 管理 KV Cache 碎片，实现 2-4× 吞吐提升 | Shift Parallelism 作为 vLLM 插件（Arctic Inference）实现，与 vLLM 互补而非替代 |
+| **DeepSpeed-FastGen**（Holmes 等，2024，arXiv:2401.08671）| Microsoft | 提出 Dynamic SplitFuse 调度策略，将 prefill 和 decode 混合批处理，实现 2.3× 吞吐、2× 更低延迟 | 同样针对延迟-吞吐 tradeoff，但依赖调度策略而非并行模式切换 |
+| **SGLang**（Zheng 等，2023，arXiv:2312.07104）| UC Berkeley | 提出 RadixAttention（KV Cache 复用）+ 压缩 FSM，针对结构化 LLM 程序实现最高 6.4× 吞吐提升 | 专注于 KV Cache 共享与结构化生成优化，未解决并行模式的动态切换问题 |
+| **Sarathi-Serve**（Agrawal 等，2024，arXiv:2403.02310）| Microsoft Research | 通过 Chunked-Prefills 和 Stall-Free 调度缓和 prefill/decode 互相干扰，实现 2.6-5.6× 容量提升 | 与 Shift Parallelism 互补：前者优化调度层，后者优化并行层 |
+
+#### 🔄 PD 分离方向（相关但路线不同）
+
+| 论文 | 机构/会议 | 核心贡献 | 与本文的关联 |
+|------|-----------|---------|-------------|
+| **Splitwise**（Patel 等，2023，arXiv:2311.18677，ISCA'24）| Microsoft Research | 最早系统性提出 prefill/decode 分离到不同机器，针对各阶段特性选择不同硬件，实现 1.4× 吞吐提升 | PD 分离的先驱，与 Shift Parallelism 的思路形成鲜明对比：SP 在单节点内动态切换模式，无需跨节点传输 KV Cache |
+| **DistServe**（Zhong 等，2024，arXiv:2401.09670，OSDI'24）| 北京大学 / 字节跳动 | 实现 prefill-decode 算力解耦，独立优化各阶段并行策略，相比传统系统支持 7.4× 更多请求或 12.6× 更严 SLO | 与 Shift Parallelism 对比：DistServe 通过跨机分离解决问题，Shift Parallelism 通过动态并行切换在同一节点解决 |
+| **Mooncake**（Qin 等，2024，arXiv:2407.00079，FAST'25）| 月之暗面 | 以 KVCache 为中心的解耦架构，用 CPU/DRAM/SSD 分层缓存 KV Cache，实现 525% 吞吐提升（长上下文）| 同样强调 KV Cache 布局的重要性，但通过存储层次而非并行模式来优化 |
+
+#### 🚀 同组 Follow-up
+
+| 论文 | 机构/会议 | 核心贡献 | 与本文的关联 |
+|------|-----------|---------|-------------|
+| **SwiftKV**（Qiao 等，2024，arXiv:2410.03960）| Snowflake AI Research | 通过模型变换跳过后期层的 KV Cache 生成，减少 25-50% prefill 计算量，支持 2× 吞吐提升 | 与 Shift Parallelism 集成于 Arctic Inference 系统中，SwiftKV 优化 prefill 计算，SP 优化并行策略 |
+| **SuffixDecoding**（Oliaro 等，2024，arXiv:2411.04975，NeurIPS'25 Spotlight）| CMU / Snowflake | 利用后缀树缓存长 token 序列，针对 agentic 应用实现最高 5.3× 推测解码加速，优于 EAGLE-2/3 达 2.8× | Arctic Inference 的推测解码组件，与 Shift Parallelism 共同组成系统级推理加速方案 |
+| **Arctic Inference**（Rajbhandari 等，2025，arXiv:2507.11830）| Snowflake AI Research | 整合 Shift Parallelism + SuffixDecoding + SwiftKV，作为 vLLM 插件开源，驱动 Snowflake Cortex AI | 本文的工程落地版本，将 Shift Parallelism 封装为生产级系统 |
+
 ## ⚙️ 核心设计与机制 
 
 ###  现有并行策略的局限性剖析
