@@ -9,7 +9,7 @@ tags:
 ---
 
 ## 🧠 核心摘要 (TL;DR)
-> FIPO 针对 GRPO 类方法中"全序列统一分配优势值"的粗粒度信用分配缺陷，提出将折扣未来KL散度（Future-KL）注入策略更新，从而构造密集优势表示（Dense Advantage）。该方法无需独立评论网络，在 Qwen2.5-32B 上将 AIME 2024 准确率从 DAPO 的 50.0% 提升至 56.0%（峰值 58.0%），并将平均推理链长度从约 4,000 token 扩展至超过 10,000 token。
+> FIPO 针对 GRPO 类方法中"全序列统一分配优势值"的粗粒度信用分配缺陷，提出将折扣未来KL散度（Future-KL）加入策略更新，从而构造密集优势表示（Dense Advantage）。该方法无需独立评估网络，在 Qwen2.5-32B 上将 AIME 2024 准确率从 DAPO 的 50.0% 提升至 56.0%（峰值 58.0%），并将平均推理链长度从约 4,000 token 扩展至超过 10,000 token。
 
 ## 🏷️ 元数据
 - **论文标题**: FIPO: Eliciting Deep Reasoning with Future-KL Influenced Policy Optimization
@@ -20,7 +20,7 @@ tags:
 ---
 
 ## 🕸️ 知识图谱索引
-- **关键词 (Keywords)**: #reinforcement-learning #llm-reasoning #credit-assignment #policy-optimization #rlvr #dense-advantage
+- **关键词 (Keywords)**: #稠密信号奖励 #reinforcement-learning #llm-reasoning #credit-assignment #policy-optimization #rlvr #dense-advantage
 - **前置知识 (Prerequisites)**: [[KV稀疏调研]]
 - **相关节点 (Related Notes)**: [[RL中的KV稀疏讨论]]
 
@@ -32,15 +32,15 @@ tags:
 
 LLM 推理能力的强化学习路线（RLVR）大体可分为两类：
 1. **基于结果的奖励（ORM）方法**：以 GRPO、DAPO 为代表，仅依赖最终答案的正确性给出奖励，奖励信号极为稀疏；
-2. **基于价值函数的方法**：以 PPO+GAE、VAPO 为代表，通过训练独立的评论网络（Critic）估计每个 token 的价值，信号更密集，但引入了额外参数和训练不稳定性。
+2. **基于价值函数的方法**：以 PPO+GAE、VAPO 为代表，通过训练独立的评估网络（Critic）估计每个 token 的价值，信号更密集，但引入了额外参数和训练不稳定性。
 
 **GRPO 的核心问题——粗粒度信用分配**：在 GRPO（DeepSeekMath 提出）中，每次采样 $G$ 条轨迹，计算相对优势后，将**同一个优势值 $A_t$** 广播给轨迹中的每一个 token。这种做法等价于假设每个 token 对最终结果的贡献完全相同，显然与实际推理过程不符——一个关键的"思维转折"token 与后续大量重复验算的 token 不应被同等看待。
 
-**性能天花板问题**：DAPO（GRPO 的改进版本，引入了 Decoupled Clip 和 Dynamic Sampling）在 Qwen2.5-32B 上将 AIME 2024 提到了 50.0%，但推理链长度稳定在约 4,000 token，难以继续延伸，说明模型无法从更长的推理中获益，本质上是缺乏细粒度的 token 级别信用信号。
+**性能天花板问题**：DAPO（GRPO 的改进版本，引入了 Decoupled Clip 和 Dynamic Sampling）在 Qwen2.5-32B 上将 AIME 2024 提到了 50.0%，但推理链长度稳定在约 4,000 token，难以继续延伸，==说明模型无法从更长的推理中获益，本质上是缺乏细粒度的 token 级别信用信号。==
 
 **引入 Critic 的代价**：PPO 使用广义优势估计（GAE，Schulman et al., 2015）可以提供密集信号，但需要一个与策略模型等大的 Critic 网络，显著增加显存和训练复杂度，在 32B+ 规模下尤为昂贵。研究表明（Yuan et al., 2025），PPO 在长 CoT 任务上容易因价值函数初始化偏差和奖励信号衰减而崩溃。
 
-**FIPO 的切入点**：能否在 **不引入额外 Critic 网络** 的前提下，利用策略自身的信息构造密集的 token 级别优势？论文的答案是"用 Future-KL"——即利用当前策略更新对后续 token 概率分布的影响来衡量每个 token 的信用。
+**FIPO 的切入点**：能否在 **不引入额外 Critic 网络** 的前提下，利用策略自身的信息构造dense的 token 级别优势？论文的答案是"用 Future-KL"——即利用当前策略更新对后续 token 概率分布的影响来衡量每个 token 的信用。
 
 ---
 

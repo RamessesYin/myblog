@@ -2,6 +2,7 @@
 title: "Sparse but Critical"
 tags:
   - RLVR
+  - 强化学习探讨
   - reinforcement-learning
   - token-distribution
   - LLM-reasoning
@@ -9,7 +10,7 @@ tags:
 ---
 
 ## 🧠 核心摘要 (TL;DR)
-> 本文系统分析了 RLVR（Reinforcement Learning with Verifiable Rewards）微调后 LLM 内部 token 级别的分布变化，发现仅有极少数位置（1~17%）的 token 分布发生显著偏移，但正是这些"稀疏但关键"的 token 驱动了全部的推理性能提升；通过交叉采样实验证明替换约 1~10% 的 token 即可复现或抹除 RL 增益，并在此基础上提出了基于散度加权的改进训练算法，在数学推理基准上超越 DAPO 基线约 2.5 分。
+> 本文系统分析了 RLVR 微调后 LLM 内部 token 级别的生成概率分布变化，发现仅有极少数位置（1~17%）的 token 分布发生显著偏移，这些token大多是“连接”或者“总结”词，用于引导后续推理的方向，而不是某些数学计算公式细节，那些更像是基模自身的能力。但正是这些"稀疏但关键"的 token 驱动了全部的推理性能提升。通过交叉采样实验证明替换约 1~10% 的 token 即可复现或抹除 RL 增益，并在此基础上提出了基于散度加权的改进训练算法，在数学推理基准上超越 DAPO 基线约 2.5 分。
 
 ## 🏷️ 元数据
 - **论文标题**: Sparse but Critical: A Token-Level Analysis of Distributional Shifts in RLVR Fine-Tuning of LLMs
@@ -21,35 +22,20 @@ tags:
 
 ## 🕸️ 知识图谱索引
 - **关键词 (Keywords)**: #rlvr #reinforcement-learning #token-distribution #llm-reasoning #post-training #grpo
-- **前置知识 (Prerequisites)**: [[RL中的KV稀疏讨论]]
+- **前置知识 (Prerequisites)**: 
 - **相关节点 (Related Notes)**:
-- **向下延申 (Successors)**:
+- **向下延申 (Successors)**: [[FIPO]]
 
 ---
 
 ## 🎯 动机与痛点
 
-### 现有方案的瓶颈
 
-RLVR 是当前提升 LLM 推理能力最有效的 post-training 手段之一。DeepSeek-R1、DAPO、SimpleRL 等一系列工作展示了 RLVR 在数学、代码、逻辑推理等任务上的显著效果。然而，**RL 微调究竟在"哪里"改变了模型**，始终是一个未被完整回答的问题：
+RLVR 是当前提升 LLM 推理能力最有效的 post-training 手段之一。DeepSeek-R1、DAPO、SimpleRL 等一系列工作展示了 RLVR 在数学、代码、逻辑推理等任务上的显著效果。然而，**RL 微调究竟在"哪里"改变了模型**，始终是一个未被完整回答的问题。该研究通过极其细粒度的Token级分析表明，RLVR并没有全局性地改写模型的行为范式，其引发的概率分布偏移呈现出极度的“稀疏性”（Sparsity）与“关键性”（Criticality） 。强化学习实际上是在基座模型已有的词汇候选集中，对极少数关键节点的低概率Token进行了精准的概率重分配（Probability Reallocation） 。
 
-- 以往研究（如 Wang et al. 2025 "Beyond the 80/20 rule"、Cui et al. 2025 "The entropy mechanism of RL"）从 **序列/聚合层面** 分析了 RL 后的熵变化，但缺少 token 级别的精细刻画
-- 不清楚分布偏移是广泛分散在所有位置，还是集中在少数关键 token 上
-- 不清楚这些偏移是否与推理性能的提升存在因果关系
-- 缺乏 RLVR 与 SFT 在分布改变模式上的系统对比
 
-### 论文的切入点
-
-本文提出三个核心研究问题：
-1. **哪些 token 的分布发生了变化**（JS 散度分析）？
-2. **这些变化是否功能性地驱动了性能提升**（交叉采样实验）？
-3. **变化的微观机制是什么**（top-k 重叠、概率质量重分配分析）？
-
-在此基础上，提出了**散度加权优势（Divergence-Weighted Advantage）**改进算法，对高/低 KL 散度位置施加不同的训练权重。
-
----
-
-### 🔗 相关工作综述
+<details>
+<summary><strong>🔗 相关工作综述（点击展开）</strong></summary>
 
 #### 先驱/奠基工作（RLVR 方法）
 
@@ -109,6 +95,8 @@ Group Sequence Policy Optimization，将 token 级别的 importance ratio 改为
 
 **17. DeepSeek-V3（DeepSeek-AI, 2024）**
 作为强基础模型，DeepSeek-V3-Base 在未经 RL 训练时已展现一定推理能力（"顿悟时刻"），为分析 RL 微调的增量效果提供了基准。
+
+</details>
 
 
 ## ⚙️ 核心设计与机制
