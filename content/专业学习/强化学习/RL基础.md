@@ -216,8 +216,9 @@ $$r_t(\theta) = \frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}$$ 限制在 $$[1
 
 ## Ratio
 
-==$r_t = \frac{\pi_{new}}{\pi_{old}} > 1$== 
-==$$L = \min \left( r_t \cdot A_t, \text{clip}(r_t, 0.8, 1.2) \cdot A_t \right)$$==
+Ratio的定义：$r_t = \frac{\pi_{new}}{\pi_{old}} > 1$
+
+Loss的截断：$$L = \min \left( r_t \cdot A_t, \text{clip}(r_t, 0.8, 1.2) \cdot A_t \right)$$
 
 advantage是一开始就确定的，而这个策略比值的本质是贪心的，会持续放大优势，直到被Clip逼停
 
@@ -249,7 +250,7 @@ $$L_{DPO} = - \log \sigma \left( \beta \log \frac{\pi_\theta(y_w)}{\pi_{ref}(y_w
  PPO 目标函数:
  - 好动作 + 加概率 ($A>0, r_t \uparrow$)：防贪婪，截断（最多奖这么多，别飘）
  - 好动作 + 降概率 ($A>0, r_t \downarrow$)：防退化，不截断（留全额梯度，逼你改错）
- - 坏动作 + 降概率 ($A<0, r_t \downarrow$)：防过度防卫，截断（降点就行了，别把概率压死），**特别是为了让 Softmax 算出的概率接近 $0$，底层网络必须把这个 Token 对应的 Logit 值推向绝对的负无穷大 ($-\infty$)。容易出现==NaN=**
+ - 坏动作 + 降概率 ($A<0, r_t \downarrow$)：防过度防卫，截断（降点就行了，别把概率压死），**特别是为了让 Softmax 算出的概率接近 $0$，底层网络必须把这个 Token 对应的 Logit 值推向绝对的负无穷大 ($-\infty$)。容易出现==NaN==**
  - 坏动作 + 加概率 ($A<0, r_t \uparrow$)：防自毁，绝对不截断（作死需要大幅修正）。
 
 
@@ -297,7 +298,7 @@ $$A^{\pi_{old}}(s_t, a_t) = Q^{\pi_{old}}(s_t, a_t) - V^{\pi_{old}}(s_t)$$
 - Supervised Learning (SFT): 我们有标准答案（Label）。无论现在的策略是什么，标准答案永远是对的。所以我们可以胆子大一点，往死里学。
 - Reinforcement Learning (PPO): Advantage 是基于“旧策略”估算出来的。
 
-==关键逻辑： Advantage = $$5.0$$ 意味着：“在当前策略的语境下，选这个词比平均水平好。” 它并不意味着：“不管发生什么，选这个词都是完美的。”==
+==关键逻辑： Advantage = $5.0$ 意味着：“在当前策略的语境下，选这个词比平均水平好。” 它并不意味着：“不管发生什么，选这个词都是完美的。”==
 
 如果你一步到位，把策略瞬间改得面目全非（Old Policy $\rightarrow$ New Policy 差异巨大），那么原来的 Advantage 估算就失效了。
 - 也许在这个词上你是对了，但因为策略变了，后续的轨迹（Trajectory）全变了，可能导致后面全是坑。
