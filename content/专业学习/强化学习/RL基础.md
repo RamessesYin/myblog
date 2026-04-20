@@ -298,7 +298,7 @@ $$A^{\pi_{old}}(s_t, a_t) = Q^{\pi_{old}}(s_t, a_t) - V^{\pi_{old}}(s_t)$$
 - Supervised Learning (SFT): 我们有标准答案（Label）。无论现在的策略是什么，标准答案永远是对的。所以我们可以胆子大一点，往死里学。
 - Reinforcement Learning (PPO): Advantage 是基于“旧策略”估算出来的。
 
-==关键逻辑： Advantage = $5.0$ 意味着：“在当前策略的语境下，选这个词比平均水平好。” 它并不意味着：“不管发生什么，选这个词都是完美的。”==
+==关键逻辑：Advantage =5.0意味着：“在当前策略的语境下，选这个词比平均水平好。” 它并不意味着：“不管发生什么，选这个词都是完美的。”==
 
 如果你一步到位，把策略瞬间改得面目全非（Old Policy $\rightarrow$ New Policy 差异巨大），那么原来的 Advantage 估算就失效了。
 - 也许在这个词上你是对了，但因为策略变了，后续的轨迹（Trajectory）全变了，可能导致后面全是坑。
