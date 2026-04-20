@@ -549,6 +549,12 @@ $$\text{最终的} Loss = \sum (\text{权重} w_t \times -Advantage_t \times \lo
 - **绝对的精准定位**：公式中的 $\frac{\partial \log P_t}{\partial \theta}$ 意味着，这个被缩放过的梯度，只会沿着时间步 $t$ 对应的计算路径流回去。第 10 个词算错的 loss，其产生的梯度只会顺着第 10 个词的隐状态流回网络，绝对不会干扰到第 9 个词或第 11 个词的计算路径。
 
 
+#### 对 Logit 求导
+在反向传播时，优化器需要知道：为了降低 Loss，我应该怎么修改这个单词对应的 Logit $z_t$？所以我们需要对 $z_t$ 求偏导：$$\frac{\partial \text{Loss}}{\partial z_t} = -A_i \times \frac{\partial \log(P_t)}{\partial z_t}$$
+
+在微积分中，Log-Softmax 函数有一个极其优美且经典的求导结果。对于目标分类 $t$ 的 Logit $z_t$ 求偏导，其结果恰好等于 $1 - P_t$。代入进去，我们就得到了传导给神经网络最后一层的真实梯度信号：$$\frac{\partial \text{Loss}}{\partial z_t} = -A_i \times (1 - P_t)$$
+
+
 ### 概率与Softmax的作用
 从LLM 的最后一层（Unembedding Layer / Head），看看**链式法则（Chain Rule）**是如何在这里起作用的。简单来说，这个过程可以概括为：“把选中的那个 Token 的得分（Logit）往上拉，把其他所有 Token 的得分往下拉。”以下是详细的数学与物理直觉拆解：
 
