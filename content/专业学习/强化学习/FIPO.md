@@ -21,8 +21,8 @@ tags:
 
 ## 🕸️ 知识图谱索引
 - **关键词 (Keywords)**: #稠密信号奖励 #reinforcement-learning #llm-reasoning #credit-assignment #policy-optimization #rlvr #dense-advantage
-- **前置知识 (Prerequisites)**: [[KV稀疏调研]]
-- **相关节点 (Related Notes)**: [[RL中的KV稀疏讨论]]
+- **前置知识 (Prerequisites)**: [[RL基础]] [[SparseButCritical]]
+- **相关节点 (Related Notes)**: [[RLBeyondBaseModel]]
 
 ---
 
@@ -41,6 +41,7 @@ LLM 推理能力的强化学习路线（RLVR）大体可分为两类：
 **引入 Critic 的代价**：PPO 使用广义优势估计（GAE，Schulman et al., 2015）可以提供密集信号，但需要一个与策略模型等大的 Critic 网络，显著增加显存和训练复杂度，在 32B+ 规模下尤为昂贵。研究表明（Yuan et al., 2025），PPO 在长 CoT 任务上容易因价值函数初始化偏差和奖励信号衰减而崩溃。
 
 **FIPO 的切入点**：能否在 **不引入额外 Critic 网络** 的前提下，利用策略自身的信息构造dense的 token 级别优势？论文的答案是"用 Future-KL"——即利用当前策略更新对后续 token 概率分布的影响来衡量每个 token 的信用。
+![RL modified distribution](/assets/RL/RL-modified%20distribution.png)
 
 ---
 

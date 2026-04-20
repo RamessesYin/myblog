@@ -12,6 +12,10 @@ tags:
 ## 🧠 核心摘要 (TL;DR)
 > 本文系统分析了 RLVR 微调后 LLM 内部 token 级别的生成概率分布变化，发现仅有极少数位置（1-17%）的 token 分布发生显著偏移，这些token大多是“连接”、“总结”或者“特定的方程结构片段”词，用于引导后续推理的方向，而不是某些数学计算公式细节，那些更像是基模自身的能力。但正是这些"稀疏但关键"的 token 驱动了全部的推理性能提升。通过交叉采样实验证明替换约 1-10% 的 token 即可复现或抹除 RL 增益，并在此基础上提出了基于散度加权的改进训练算法，在数学推理基准上超越 DAPO 基线约 2.5 分。
 
+
+![RL modified distribution](/assets/RL/RL-modified%20distribution.png)
+
+
 ## 🏷️ 元数据
 - **论文标题**: Sparse but Critical: A Token-Level Analysis of Distributional Shifts in RLVR Fine-Tuning of LLMs
 - **发表机构/会议**: ICLR 2026 / Alibaba Group (Qwen Pilot Team)
