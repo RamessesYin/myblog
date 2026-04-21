@@ -381,3 +381,12 @@
 - **摘要**: Shift Parallelism（Snowflake AI Research，2025）利用 TP 与 Ulysses SP 在注意力层 KV Cache 布局完全一致的不变性，构建轻量级运行时调度器，根据批次大小动态在 TP（低延迟）和 SP（高吞吐）之间零成本切换，在单一部署中同时实现两种策略的最优性能；集成 SwiftKV + SuffixDecoding 后，请求完成速度较最优吞吐方案提升 3.4×，吞吐较最优延迟方案提升 1.75×。补充了相关工作（先驱/对比/Follow-up）共 13 篇文献。
 - **来源文件**: todo/task11.md（任务三批处理）
 
+---
+
+## [2026-04-21 03:30] Helix Parallelism — 交互式超长上下文 LLM 解码分片策略
+- **原文**: https://arxiv.org/abs/2507.07120
+- **正式笔记**: content/专业学习/HelixParallelism.md
+- **参考文献**: content/参考文献/paper/HelixParallelism_paper.md
+- **关键词**: #kv-cache #tensor-parallelism #long-context #llm-inference #moe #attention
+- **摘要**: Helix Parallelism（NVIDIA，2025）针对百万 token 上下文实时解码，提出时序解耦策略：Attention 阶段用 KVP×TPA 分片 KV Cache（All-to-All 通信量仅 O(B×H)，不随序列长度增长），FFN 阶段将同一批 GPU 重组为 TP(N)（Dense）或 TP×EP（MoE），配合 HOP-B 异步通信隐藏，在 GB200 上 DeepSeek-R1 TTL 降低 1.5×、批大小提升 32×。
+
