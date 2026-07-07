@@ -383,6 +383,24 @@
 
 ---
 
+## [2026-06-24] FlexPrefill — 上下文感知稀疏注意力高效长序列推理
+- **原文**: https://arxiv.org/abs/2502.20766
+- **正式笔记**: content/专业学习/FlexPrefill.md
+- **参考文献**: content/参考文献/paper/FlexPrefill_paper.md
+- **关键词**: #sparse-attention #long-context #llm-inference #kv-cache #prefill #iclr2025
+- **摘要**: FlexPrefill（PKU/HKU/ByteDance，ICLR 2025 Oral）提出基于 JSD 在线判断稀疏模式 + 累积注意力阈值 γ 动态预算的上下文感知稀疏注意力机制，在 RULER 128K 上以 79.09% 精度（MInference 仅 58.17%）显著领先，并支持与 FlashAttention-2 集成。
+
+---
+
+## [2026-06-24] RaMP — MoE 运行时感知 Megakernel 多态推理加速
+- **原文**: https://arxiv.org/pdf/2604.26039
+- **正式笔记**: content/专业学习/RaMP.md
+- **参考文献**: content/参考文献/paper/RaMP_paper.md
+- **关键词**: #moe #gpu-kernel #llm-inference #expert-routing #matmul #cutlass
+- **摘要**: RaMP（arXiv:2604.26039，2026）发现现有 MoE 内核仅靠批大小选配置、忽略运行时专家路由分布，导致 10–70% 吞吐浪费；提出四参数波浪代价模型 + 离线性能区域包络 + CuTe DSL 超内核（134–268 个预编译配置）三层架构，实现运行时零编译零开销多态切换，内核加速 1.22×，端到端 vs vLLM/Triton 达 1.30×，vs DeepGEMM 达 1.41×。
+
+---
+
 ## [2026-04-21 03:30] Helix Parallelism — 交互式超长上下文 LLM 解码分片策略
 - **原文**: https://arxiv.org/abs/2507.07120
 - **正式笔记**: content/专业学习/HelixParallelism.md
@@ -390,3 +408,20 @@
 - **关键词**: #kv-cache #tensor-parallelism #long-context #llm-inference #moe #attention
 - **摘要**: Helix Parallelism（NVIDIA，2025）针对百万 token 上下文实时解码，提出时序解耦策略：Attention 阶段用 KVP×TPA 分片 KV Cache（All-to-All 通信量仅 O(B×H)，不随序列长度增长），FFN 阶段将同一批 GPU 重组为 TP(N)（Dense）或 TP×EP（MoE），配合 HOP-B 异步通信隐藏，在 GB200 上 DeepSeek-R1 TTL 降低 1.5×、批大小提升 32×。
 
+
+---
+
+## [2026-06-25 12:00] LMetric — 乘法即调度
+- **原文**: https://arxiv.org/abs/2603.15202
+- **正式笔记**: content/专业学习/LMetric乘法调度.md
+- **参考文献**: content/参考文献/paper/LMetric_paper.md
+- **关键词**: #llm-serving #request-scheduling #kvcache #load-balancing #prefix-caching
+- **摘要**: LMetric（OSDI'26，上海交大 IPADS + 阿里）将 KVCache 感知指标（P-token）与负载均衡指标（batch size）相乘作为调度分数取最小积，利用乘法在跨实例比较时超参自动抵消的特性实现完全免调参；推导 KV$ 热点失效条件（x/x̄≤|M|/|M̄|）并设计两阶段检测器回退纯负载均衡兜底；blitz-router 用 Rust 实现，相比 vLLM-v1 TTFT−92%/TPOT−24%，生产 canary 相比 Bailian TTFT−39%/TPOT−51%。
+
+## [2026-06-25 16:00] ReMP 运行时模型并行重配置
+- **原文**: https://arxiv.org/abs/2606.18741
+- **正式笔记**: content/专业学习/ReMP.md
+- **参考文献**: content/参考文献/paper/ReMP_paper.md
+- **关键词**: #llm推理服务 #模型并行 #运行时重配置 #kvcache迁移 #弹性服务
+- **摘要**: ReMP（arXiv 2026）针对 TP+PP 静态拓扑无法随负载调整、只能靠重启切换（数分钟中断 + KV cache 全丢 + 重算）的痛点，提出将并行拓扑与四类运行时状态（权重/KV/通信组/worker）解耦，配合沿 PP 层维与 TP 头维的二维 KV cache 迁移（求交建模 + layer-wise streaming + P2P）与 KV 迁移/模型 reshard 重叠优化，把拓扑切换压到 1–7 秒，相比重启加速可超 100×，并在中高负载下同时取得更低 TTFT/TPOT 与更高吞吐；基于 vLLM V1 实现，在 8×H100 与 8×RTX5090 上对 Llama-7B/70B、DeepSeek-32B、Qwen3-30B-A3B 验证。
+- **注意**: 本文标题为 ReMP（非 RaMP），与已有的 RaMP.md/RaMP_paper.md（arXiv:2604.26039，MoE 超内核多态）是两篇不同论文，故新建 ReMP 系列文件，未覆盖 RaMP 文件。
